@@ -1,0 +1,13 @@
+#!/bin/bash
+
+time singularity exec -e docker://brainlife/fsl:5.0.11 ./fsl.sh
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
