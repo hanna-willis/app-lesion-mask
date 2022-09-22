@@ -1,4 +1,4 @@
 {
     "roi": "./rois.nii.gz",
-    "lesion": "./lesion.nii.gz",
+    "lesion": "./lesion.nii.gz"
 }
