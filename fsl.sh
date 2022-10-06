@@ -1,16 +1,34 @@
 #!/bin/bash
 
 # This is the main file run by the brainlife.io orchestration system
-# Author: Hanna Willis & Giulia Bertò
+# Author: Hanna Willis & Brad Caron
 
-# input configs
-lesion=`jq -r '.lesion' config.json`
-roi=`jq -r '.roi' config.json`
+set -x
+set -e
 
-# make output directory
-mkdir -p out_dir
+# Set up directory 
+rois_1_loc=`jq -r '.rois_1_loc' config.json`
+rois_2_loc=`jq -r '.rois_2_loc' config.json`
 
-# use fslmaths to mask lesion by roi 
+# Set up ROI of interest
+roi_1=`jq  -r '.roi_1' config.json`
+roi_2=`jq -r '.roi_2' config.json`
 
-echo "mask lesion by roi"
-fslmaths $lesion -mas $roi out_dir/roi_lesion_mask.nii.gz
+# Set up function (i.e. sub,add,mul or mas)
+function=`jq -r '.function' config.json`
+
+# Set up output name
+output_roi_name=`jq -r '.output_roi_name' config.json`
+
+# Make directories for output directories 
+mkdir output output/rois
+
+# Copy over ROIs into output directory 
+cp -r ${roi_1}.nii.gz ${roi_2}.nii.gz ./output/rois
+
+roi1=./output/rois/${roi_1}.nii.gz
+roi2=./output/rois/${roi_2}.nii.gz
+
+# Run fslmaths command
+fslmaths ${roi1} -${function} ${roi2} ./output/rois/${output_roi_name}.nii.gz
+
