@@ -24,7 +24,7 @@ output_roi_name=`jq -r '.output_roi_name' config.json`
 mkdir output output/rois
 
 # Copy over ROIs into output directory 
-cp -r ${roi_1}.nii.gz ${roi_2}.nii.gz ./output/rois
+cp -r ${rois_1_loc}/${roi_1}.nii.gz ${rois_2_loc}/${roi_2}.nii.gz ./output/rois
 
 roi1=./output/rois/${roi_1}.nii.gz
 roi2=./output/rois/${roi_2}.nii.gz
