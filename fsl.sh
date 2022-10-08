@@ -30,5 +30,11 @@ roi1=./output/rois/${roi_1}.nii.gz
 roi2=./output/rois/${roi_2}.nii.gz
 
 # Run fslmaths command
+if [ $function = "sub" ]; then 
 fslmaths ${roi1} -${function} ${roi2} ./output/rois/${output_roi_name}.nii.gz
+fslmaths ./output/rois/${output_roi_name}.nii.gz -uthr 1 -thr 0 ./output/rois/${output_roi_name}.nii.gz
+else 
+fslmaths ${roi1} -${function} ${roi2} ./output/rois/${output_roi_name}.nii.gz
+fi
+
 
